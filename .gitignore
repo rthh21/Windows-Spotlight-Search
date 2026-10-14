@@ -1,0 +1,20 @@
+# .NET / C#
+[Bb]in/
+[Oo]bj/
+*.user
+*.suo
+.vs/
+
+# Go
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/

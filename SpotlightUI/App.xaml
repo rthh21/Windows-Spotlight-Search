@@ -5,6 +5,12 @@
              ShutdownMode="OnExplicitShutdown"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <FontFamily x:Key="SanFranciscoFont">SF Pro Display, SF Pro Text, SF Pro, -apple-system, Segoe UI Variable Display, Segoe UI, sans-serif</FontFamily>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="FontFamily" Value="{StaticResource SanFranciscoFont}"/>
+        </Style>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="FontFamily" Value="{StaticResource SanFranciscoFont}"/>
+        </Style>
     </Application.Resources>
 </Application>

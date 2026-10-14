@@ -5,6 +5,7 @@
         WindowStyle="None" AllowsTransparency="True" Background="Transparent"
         Topmost="True" ShowInTaskbar="False"
         WindowStartupLocation="Manual"
+        FontFamily="SF Pro Display, SF Pro Text, SF Pro, -apple-system, Segoe UI Variable Display, Segoe UI, sans-serif"
         UseLayoutRounding="True"
         SnapsToDevicePixels="True"
         TextOptions.TextFormattingMode="Display"
@@ -15,7 +16,8 @@
 
     <Window.Resources>
         <!-- macOS Frosted Glass Context Menu -->
-        <ContextMenu x:Key="ResultItemContextMenu" Background="#EE14161D" Foreground="#FFFFFF" BorderBrush="#45FFFFFF">
+        <ContextMenu x:Key="ResultItemContextMenu" Background="#EE14161D" Foreground="#FFFFFF" BorderBrush="#45FFFFFF"
+                     FontFamily="SF Pro Text, SF Pro Display, SF Pro, Segoe UI">
             <MenuItem Header="Open File Location" Click="MenuOpenLocation_Click"/>
             <MenuItem Header="Copy Full Path" Click="MenuCopyPath_Click"/>
         </ContextMenu>
@@ -34,7 +36,7 @@
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="19">
+                                CornerRadius="21">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -108,39 +110,38 @@
         </Storyboard>
     </Window.Resources>
 
-    <!-- Capsulă macOS 27: CornerRadius="36" (1:1 cu forma de pilulă din poză la înălțimea de 72px) -->
-    <Border x:Name="RootGlassBorder" Margin="0" CornerRadius="36" BorderThickness="1.2">
+    <!-- macOS Capsule: CornerRadius="36" Glassmorphism -->
+    <Border x:Name="RootGlassBorder" Margin="0" CornerRadius="36" BorderThickness="1.2" ClipToBounds="True">
 
-    <!-- Gradient vertical 1:1 cu poza macOS 27: negru intens sus -> sticlă lăptoasă/argintie jos -->
+    <!-- Gradient vertical: Negru intens lucios sus -> Clear Glassmorphism jos -->
     <Border.Background>
         <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-            <GradientStop Color="#F6040508" Offset="0.0"/>
-            <GradientStop Color="#EB10141B" Offset="0.28"/>
-            <GradientStop Color="#DB2D343E" Offset="0.58"/>
-            <GradientStop Color="#CC646C77" Offset="0.84"/>
-            <GradientStop Color="#C49299A3" Offset="1.0"/>
+            <GradientStop Color="#F8020305" Offset="0.0"/>
+            <GradientStop Color="#EB07090D" Offset="0.32"/>
+            <GradientStop Color="#990F141F" Offset="0.62"/>
+            <GradientStop Color="#3016202C" Offset="0.86"/>
+            <GradientStop Color="#0A16202C" Offset="1.0"/>
         </LinearGradientBrush>
     </Border.Background>
 
-    <!-- Contur Specular (Rim Light): discret sus, strălucitor pe curbele laterale și la bază -->
+    <!-- Specular Glass Rim: discret sus, strălucire clară de sticlă pe curbe și bază -->
     <Border.BorderBrush>
         <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-            <GradientStop Color="#22FFFFFF" Offset="0.0"/>
-            <GradientStop Color="#38FFFFFF" Offset="0.45"/>
-            <GradientStop Color="#88FFFFFF" Offset="0.88"/>
-            <GradientStop Color="#B5FFFFFF" Offset="1.0"/>
+            <GradientStop Color="#25FFFFFF" Offset="0.0"/>
+            <GradientStop Color="#40FFFFFF" Offset="0.50"/>
+            <GradientStop Color="#75FFFFFF" Offset="0.88"/>
+            <GradientStop Color="#95FFFFFF" Offset="1.0"/>
         </LinearGradientBrush>
     </Border.BorderBrush>
 
     <Grid>
-        <!-- STREAMING_CHUNK:Adding optical glass refraction and ambient highlights... -->
-        <!-- Refracție optică rece subtilă în jumătatea stângă-mijloc (ca în poza cu munții pe fundal) -->
-        <Ellipse Width="340" Height="64" HorizontalAlignment="Left" VerticalAlignment="Center"
-                 Margin="95,4,0,0" IsHitTestVisible="False" Opacity="0.16">
+        <!-- Refracție optică rece subtilă de sticlă lichidă -->
+        <Ellipse Width="340" Height="58" HorizontalAlignment="Left" VerticalAlignment="Center"
+                 Margin="95,4,0,0" IsHitTestVisible="False" Opacity="0.14">
             <Ellipse.Fill>
                 <RadialGradientBrush>
-                    <GradientStop Color="#5882B8" Offset="0.0"/>
-                    <GradientStop Color="#005882B8" Offset="1.0"/>
+                    <GradientStop Color="#5486C4" Offset="0.0"/>
+                    <GradientStop Color="#005486C4" Offset="1.0"/>
                 </RadialGradientBrush>
             </Ellipse.Fill>
             <Ellipse.Effect>
@@ -148,13 +149,24 @@
             </Ellipse.Effect>
         </Ellipse>
 
-        <!-- Reflexie de bază (Bottom Inner Rim Glow) specifică macOS 27 -->
-        <Border CornerRadius="35" IsHitTestVisible="False" VerticalAlignment="Bottom" Height="34">
+        <!-- Reflexie și refracție speculară pe baza transparentă (Glassmorphism Bottom Rim) -->
+        <Border CornerRadius="35" IsHitTestVisible="False" VerticalAlignment="Bottom" Height="28">
             <Border.Background>
                 <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                     <GradientStop Color="#00FFFFFF" Offset="0.0"/>
-                    <GradientStop Color="#18FFFFFF" Offset="0.65"/>
-                    <GradientStop Color="#36FFFFFF" Offset="1.0"/>
+                    <GradientStop Color="#08FFFFFF" Offset="0.65"/>
+                    <GradientStop Color="#22FFFFFF" Offset="1.0"/>
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
+
+        <!-- Subtle Top Specular Glass Sheen -->
+        <Border CornerRadius="36" IsHitTestVisible="False" VerticalAlignment="Top" Height="1" Margin="28,0,28,0">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop Color="#00FFFFFF" Offset="0.0"/>
+                    <GradientStop Color="#40FFFFFF" Offset="0.5"/>
+                    <GradientStop Color="#00FFFFFF" Offset="1.0"/>
                 </LinearGradientBrush>
             </Border.Background>
         </Border>
@@ -201,7 +213,7 @@
 
                 <!-- Placeholder Text "Search or Ask" 1:1 cu imaginea -->
                 <TextBlock x:Name="PlaceholderText" Grid.Column="1" Text="Search or Ask"
-                           FontFamily="Segoe UI Variable Display, SF Pro Display, Segoe UI"
+                           FontFamily="SF Pro Display, SF Pro Text, SF Pro, Segoe UI"
                            FontSize="24" FontWeight="Regular" Foreground="#CFD5DF"
                            VerticalAlignment="Center" Margin="2,0,0,1"
                            IsHitTestVisible="False"/>
@@ -209,7 +221,7 @@
                 <!-- Input-ul propriu-zis (cursorul nativ este invizibil via CaretBrush="Transparent") -->
                 <TextBox x:Name="SearchBox" Grid.Column="1"
                          Background="Transparent" BorderThickness="0"
-                         FontFamily="Segoe UI Variable Display, SF Pro Display, Segoe UI"
+                         FontFamily="SF Pro Display, SF Pro Text, SF Pro, Segoe UI"
                          Foreground="#FFFFFF" CaretBrush="Transparent"
                          SelectionBrush="#550A84FF"
                          FontSize="24" FontWeight="Regular" VerticalContentAlignment="Center"
@@ -231,17 +243,17 @@
                 </Button>
 
                 <!-- Right Search button (executes search on click) -->
-                <Button x:Name="SettingsButton" Grid.Column="3" Width="38" Height="38"
+                <Button x:Name="SettingsButton" Grid.Column="3" Width="42" Height="42"
                         Style="{StaticResource LiquidCircleButton}"
                         ToolTip="Search"
                         Click="SettingsButton_Click" VerticalAlignment="Center" Margin="2,0,0,0">
-                    <Canvas Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <!-- Cercul lupei -->
-                        <Ellipse Canvas.Left="2.5" Canvas.Top="2.5" Width="10.5" Height="10.5"
-                                 Stroke="#DCE1EA" StrokeThickness="1.9"/>
-                        <!-- Mânerul lupei -->
-                        <Path Data="M 10.4,10.4 L 16.5,16.5"
-                              Stroke="#DCE1EA" StrokeThickness="2.2"
+                    <Canvas Width="24" Height="24" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <!-- Magnifying glass circle -->
+                        <Ellipse Canvas.Left="2.5" Canvas.Top="2.5" Width="13" Height="13"
+                                 Stroke="#E4E9F2" StrokeThickness="2.2"/>
+                        <!-- Magnifying glass handle -->
+                        <Path Data="M 12.5,12.5 L 20.5,20.5"
+                              Stroke="#E4E9F2" StrokeThickness="2.5"
                               StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
                     </Canvas>
                 </Button>
@@ -339,18 +351,22 @@
                             <StackPanel Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Center">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="{Binding Name}" Foreground="#FFFFFF" FontSize="14.5" FontWeight="SemiBold"
+                                               FontFamily="SF Pro Display, SF Pro Text, SF Pro, Segoe UI"
                                                TextTrimming="CharacterEllipsis" MaxWidth="460"/>
                                     <Border Visibility="{Binding TopHitVisibility}" Background="#35FFFFFF" BorderBrush="#65FFFFFF"
                                             BorderThickness="1" CornerRadius="8" Padding="7,1.5" Margin="8,0,0,0" VerticalAlignment="Center">
-                                        <TextBlock Text="TOP HIT" Foreground="#FFFFFF" FontSize="9" FontWeight="Bold"/>
+                                        <TextBlock Text="TOP HIT" Foreground="#FFFFFF" FontSize="9" FontWeight="Bold"
+                                                   FontFamily="SF Pro Text, SF Pro Display, SF Pro, Segoe UI"/>
                                     </Border>
                                     <Border Visibility="{Binding CategoryBadgeVisibility}" Background="{Binding CategoryBadgeBrush}"
                                             BorderBrush="{Binding CategoryBadgeBorderBrush}"
                                             BorderThickness="1" CornerRadius="8" Padding="6,1.5" Margin="6,0,0,0" VerticalAlignment="Center">
-                                        <TextBlock Text="{Binding CategoryBadgeText}" Foreground="#FFFFFF" FontSize="8.5" FontWeight="SemiBold"/>
+                                        <TextBlock Text="{Binding CategoryBadgeText}" Foreground="#FFFFFF" FontSize="8.5" FontWeight="SemiBold"
+                                                   FontFamily="SF Pro Text, SF Pro Display, SF Pro, Segoe UI"/>
                                     </Border>
                                 </StackPanel>
                                 <TextBlock Text="{Binding Subtitle}" Foreground="#DCE1EB" FontSize="11.5" Margin="0,2,0,0"
+                                           FontFamily="SF Pro Text, SF Pro Display, SF Pro, Segoe UI"
                                            TextTrimming="CharacterEllipsis" MaxWidth="560"/>
                             </StackPanel>
                         </Grid>
@@ -359,14 +375,14 @@
             </ListBox>
         </StackPanel>
 
-        <!-- STREAMING_CHUNK:Rendering the Settings & Ask Siri/Spotlight overlay... -->
         <!-- Settings / Spotlight Shortcuts Overlay (:settings) -->
         <Border x:Name="SettingsOverlay" Visibility="Collapsed" CornerRadius="36" Padding="28,22">
             <Border.Background>
                 <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                    <GradientStop Color="#F8080A0F" Offset="0.0"/>
-                    <GradientStop Color="#F2242A34" Offset="0.65"/>
-                    <GradientStop Color="#EB555D69" Offset="1.0"/>
+                    <GradientStop Color="#F8030508" Offset="0.0"/>
+                    <GradientStop Color="#EB080B10" Offset="0.35"/>
+                    <GradientStop Color="#900F1520" Offset="0.70"/>
+                    <GradientStop Color="#1815202E" Offset="1.0"/>
                 </LinearGradientBrush>
             </Border.Background>
 
